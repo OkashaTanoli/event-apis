@@ -10,6 +10,7 @@ const eventReservationClient = require('./routes/eventreservationclient')
 const eventReservationVolunteer = require('./routes/eventreservationvolunteer')
 const admin = require('./routes/admin')
 const businessAdmin = require('./routes/businessadmin')
+const owner = require('./routes/owner')
 const app = express()
 const PORT = process.env.PORT || 5000
 
@@ -25,6 +26,7 @@ app.use("/api/v1/eventreservationclient", eventReservationClient)
 app.use("/api/v1/eventreservationvolunteer", eventReservationVolunteer)
 app.use("/api/v1/admin", admin)
 app.use("/api/v1/businessadmin", businessAdmin)
+app.use("/api/v1/owner", owner)
 
 
 
