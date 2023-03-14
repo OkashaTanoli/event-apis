@@ -8,6 +8,8 @@ const event = require('./routes/event')
 const eventGroup = require('./routes/eventgroup')
 const eventReservationClient = require('./routes/eventreservationclient')
 const eventReservationVolunteer = require('./routes/eventreservationvolunteer')
+const admin = require('./routes/admin')
+const businessAdmin = require('./routes/businessadmin')
 const app = express()
 const PORT = process.env.PORT || 5000
 
@@ -21,6 +23,8 @@ app.use("/api/v1/event", event)
 app.use("/api/v1/eventgroup", eventGroup)
 app.use("/api/v1/eventreservationclient", eventReservationClient)
 app.use("/api/v1/eventreservationvolunteer", eventReservationVolunteer)
+app.use("/api/v1/admin", admin)
+app.use("/api/v1/businessadmin", businessAdmin)
 
 
 
