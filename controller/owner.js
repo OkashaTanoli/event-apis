@@ -82,8 +82,78 @@ const LoginOwner = async (req, res) => {
 }
 
 
+const GetOwner = async (req, res) => {
+    const adminId = req.userData.adminId
+    try {
+        const owner = await Owner.findOne({ _id: adminId })
+        if (!owner) {
+            return res.status(401).json({
+                message: 'auth token invalid'
+            })
+        }
+        res.status(200).json(owner)
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+}
+
+
+const DeleteOwner = async (req, res) => {
+    const adminId = req.userData.adminId
+    try {
+        const owner = await Owner.findOneAndDelete({ _id: adminId })
+        if (!owner) {
+            return res.status(401).json({
+                message: 'auth token invalid'
+            })
+        }
+        res.status(200).json({ message: 'Owner deleted successfully' })
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+}
+
+
+
+
+const UpdateOwner = async (req, res) => {
+    const adminId = req.userData.adminId
+    const newObj = {}
+    for (let i = 0; i < Object.keys(req.body).length; i++) {
+        newObj[Object.keys(req.body)[i]] = Object.values(req.body)[i]
+    }
+    try {
+        const owner = await Owner.findOneAndUpdate({ _id: adminId }, newObj)
+        if (!owner) {
+            return res.status(401).json({
+                message: 'auth token invalid'
+            })
+        }
+        res.status(200).json({ message: 'Owner updated successfully' })
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+}
+
+
+
+
+
+
 
 module.exports = {
     SignUpOwner,
-    LoginOwner
+    LoginOwner,
+    GetOwner,
+    UpdateOwner,
+    DeleteOwner
 }
