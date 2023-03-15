@@ -83,8 +83,76 @@ const LoginAdmin = async (req, res) => {
 }
 
 
+const GetAdmin = async (req, res) => {
+    const adminId = req.userData.adminId
+    try {
+        const admin = await Admin.findOne({ _id: adminId })
+        if (!admin) {
+            return res.status(401).json({
+                message: 'auth token invalid'
+            })
+        }
+        res.status(200).json(admin)
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+}
+
+
+
+const DeleteAdmin = async (req, res) => {
+    const adminId = req.userData.adminId
+    try {
+        const admin = await Admin.findOneAndDelete({ _id: adminId })
+        if (!admin) {
+            return res.status(401).json({
+                message: 'auth token invalid'
+            })
+        }
+        res.status(200).json({ message: 'Admin deleted successfully' })
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+}
+
+
+
+
+const UpdateAdmin = async (req, res) => {
+    const adminId = req.userData.adminId
+    const newObj = {}
+    for (let i = 0; i < Object.keys(req.body).length; i++) {
+        newObj[Object.keys(req.body)[i]] = Object.values(req.body)[i]
+    }
+    try {
+        const admin = await Admin.findOneAndUpdate({ _id: adminId }, newObj)
+        if (!admin) {
+            return res.status(401).json({
+                message: 'auth token invalid'
+            })
+        }
+        res.status(200).json({ message: 'Admin updated successfully' })
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+}
+
+
+
 
 module.exports = {
     SignUpAdmin,
-    LoginAdmin
+    LoginAdmin,
+    GetAdmin,
+    UpdateAdmin,
+    DeleteAdmin
 }
