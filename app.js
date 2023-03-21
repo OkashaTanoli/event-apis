@@ -31,7 +31,7 @@ app.use("/api/v1/owner", owner)
 
 
 app.get('/', (req, res) => {
-    res.send('hi')
+    res.send('hello')
 })
 
 ConnectMongoDB(process.env.MONGO_URI).then(() => {
