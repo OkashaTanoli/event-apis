@@ -72,6 +72,10 @@ const Volunteer = new mongoose.Schema({
         type: String,
         required: [true, "VolunteerAttandance is required"],
     },
+    volunteerExists: {
+        type: Boolean,
+        default: false
+    }
 })
 
 module.exports = mongoose.model("Volunteer", Volunteer);

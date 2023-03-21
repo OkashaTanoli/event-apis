@@ -24,12 +24,12 @@ const EventReservationClient = new mongoose.Schema({
         required: [true, "EventID is required"]
     },
     checkIN: {
-        type: Boolean,
-        default: false
+        type: Date,
+        // default: false
     },
     checkOut: {
-        type: Boolean,
-        default: false
+        type: Date,
+        // default: false
     }
 })
 

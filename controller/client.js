@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const SignUpClient = async (req, res) => {
     const checkclient = await Client.find({ email: req.body.email })
     if (checkclient.length) {
+        await Client.findOneAndUpdate({ email: req.body.email }, { clientExists: true })
         return res.status(409).json({ message: "User Already Exists" })
     }
     else {
@@ -28,8 +29,16 @@ const SignUpClient = async (req, res) => {
                         // clientStatus: req.body.clientStatus,
                         clientAttandance: req.body.clientAttandance
                     })
+                    const token = jwt.sign(
+                        {
+                            email: user.email,
+                            userId: user._id
+                        },
+                        process.env.JWT_KEY
+                    )
                     res.status(201).json({
-                        message: 'User created successfully'
+                        message: 'User created successfully',
+                        token
                     })
                 }
                 catch (err) {

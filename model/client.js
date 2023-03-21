@@ -66,6 +66,10 @@ const Client = new mongoose.Schema({
         type: String,
         required: [true, "ClientAttandance is required"],
     },
+    clientExists: {
+        type: Boolean,
+        default: false
+    }
 })
 
 module.exports = mongoose.model("Client", Client);
