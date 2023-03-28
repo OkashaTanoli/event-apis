@@ -49,6 +49,10 @@ const Volunteer = new mongoose.Schema({
         type: String,
         required: [true, "Password is required"],
     },
+    confirmPassword: {
+        type: String,
+        required: [true, "Confirm Password is required"],
+    },
     activeStatus: {
         type: Boolean,
         default: true
@@ -63,6 +67,7 @@ const Volunteer = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
+        default: ''
     },
     volunteerStatus: {
         type: Boolean,

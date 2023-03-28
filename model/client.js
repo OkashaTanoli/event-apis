@@ -43,6 +43,10 @@ const Client = new mongoose.Schema({
         type: String,
         required: [true, "Password is required"],
     },
+    confirmPassword: {
+        type: String,
+        required: [true, "Confirm Password is required"],
+    },
     activeStatus: {
         type: Boolean,
         default: true
@@ -57,6 +61,7 @@ const Client = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
+        default: ''
     },
     clientStatus: {
         type: Boolean,
