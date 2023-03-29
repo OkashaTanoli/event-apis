@@ -59,6 +59,30 @@ const Event = new mongoose.Schema({
         type: Number,
         required: [true, "EventCapacity is required"]
     },
+    place: {
+        type: String,
+        required: [true, "Place is required"]
+    },
+    house: {
+        type: String,
+        required: [true, "House is required"]
+    },
+    zip: {
+        type: String,
+        required: [true, "Zip is required"]
+    },
+    day: {
+        type: String,
+        default: null
+    },
+    date: {
+        type: String,
+        default: null
+    },
+    monthYear: {
+        type: String,
+        default: null
+    },
     groupServicePeriod: {
         type: String,
         required: [true, "GroupServicePeriod is required"]

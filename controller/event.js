@@ -19,6 +19,12 @@ const CreateEvent = async (req, res) => {
             afterEventStartTime: data.afterEventStartTime,
             afterEventEndTime: data.afterEventEndTime,
             eventCapacity: data.eventCapacity,
+            place: data.place,
+            house: data.house,
+            zip: data.zip,
+            day: data.day ? data.day : null,
+            date: data.date ? data.date : null,
+            monthYear: data.monthYear ? data.monthYear : null,
             groupServicePeriod: data.groupServicePeriod,
             volunteerCapacity: data.volunteerCapacity,
             eventCode: data.eventCode
