@@ -1,4 +1,6 @@
 const express = require("express")
+const fs = require('fs')
+const path = require('path')
 require('dotenv').config()
 const cors = require('cors')
 const ConnectMongoDB = require("./db/db")
@@ -11,10 +13,13 @@ const eventReservationVolunteer = require('./routes/eventreservationvolunteer')
 const admin = require('./routes/admin')
 const businessAdmin = require('./routes/businessadmin')
 const owner = require('./routes/owner')
+// const upload = require('./routes/upload')
+const multer = require("multer")
 const app = express()
 const PORT = process.env.PORT || 5000
 
 app.use(cors())
+app.use('/images', express.static(__dirname + '/images'));
 app.use(express.json())
 
 
@@ -27,6 +32,48 @@ app.use("/api/v1/eventreservationvolunteer", eventReservationVolunteer)
 app.use("/api/v1/admin", admin)
 app.use("/api/v1/businessadmin", businessAdmin)
 app.use("/api/v1/owner", owner)
+
+
+
+
+
+// Get All Images
+
+app.get('/api/v1/getimages', (req, res) => {
+    const directoryPath = path.join(__dirname, 'images');
+    fs.readdir(directoryPath, (err, files) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        res.json(files);
+    });
+});
+
+// Upload Image
+
+const storageEngine = multer.diskStorage({
+    destination: "images",
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}--${file.originalname}`);
+    },
+});
+
+const upload = multer({
+    storage: storageEngine,
+});
+
+app.post("/api/v1/upload", upload.single("image"), (req, res) => {
+    if (req.file) {
+        res.json({
+            message: "Image uploaded successfully",
+            link: "/images/" + req.file.filename
+        });
+    } else {
+        res.status(400).json({
+            message: "Please upload a valid image"
+        });
+    }
+})
 
 
 
