@@ -3,7 +3,10 @@ const EventReservationClient = require('../model/eventreservationclient')
 const CreateEventReservation = async (req, res) => {
     const data = req.body
     const userId = req.userData.userId
-
+    const eventReservation = await EventReservationClient.findOne({ clientID: userId, eventID: data.eventID, eventGroupID: data.eventGroupID })
+    if (eventReservation) {
+        return res.status(403).json({ message: 'Event already reserved for user' })
+    }
     try {
         const eventReservationClient = await EventReservationClient.create({
             clientID: userId,
