@@ -39,11 +39,13 @@ const Volunteer = new mongoose.Schema({
     },
     employer: {
         type: String,
-        required: [true, "Employer is required"],
+        // required: [true, "Employer is required"],
+        default: ''
     },
     organization: {
         type: String,
-        required: [true, "Organization is required"],
+        // required: [true, "Organization is required"],
+        default: ''
     },
     password: {
         type: String,
