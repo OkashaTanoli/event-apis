@@ -13,6 +13,7 @@ const eventReservationVolunteer = require('./routes/eventreservationvolunteer')
 const admin = require('./routes/admin')
 const businessAdmin = require('./routes/businessadmin')
 const owner = require('./routes/owner')
+const organization = require('./routes/organization')
 // const upload = require('./routes/upload')
 const multer = require("multer")
 const app = express()
@@ -32,6 +33,7 @@ app.use("/api/v1/eventreservationvolunteer", eventReservationVolunteer)
 app.use("/api/v1/admin", admin)
 app.use("/api/v1/businessadmin", businessAdmin)
 app.use("/api/v1/owner", owner)
+app.use("/api/v1/organization", organization)
 
 
 
@@ -78,7 +80,7 @@ app.post("/api/v1/upload", upload.single("image"), (req, res) => {
 
 
 app.get('/', (req, res) => {
-    res.send('events')
+    res.send({ message: 'welcome to events API' })
 })
 
 ConnectMongoDB(process.env.MONGO_URI).then(() => {
