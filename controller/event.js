@@ -1,10 +1,15 @@
+const CustomId = require('../model/customids')
 const Event = require('../model/events')
 
 const CreateEvent = async (req, res) => {
     const data = req.body
+    const customIds = await CustomId.find()
+    // res.json(customIds)
+
     try {
         const event = await Event.create({
-            organization: data.organization,
+            event_id: customIds[0].eventId + 1,
+            orgId: data.orgId,
             eventType: data.eventType,
             location: {
                 latitude: data.location.latitude,
@@ -12,23 +17,31 @@ const CreateEvent = async (req, res) => {
                 latitudeDelta: data.location.latitudeDelta,
                 longitudeDelta: data.location.longitudeDelta
             },
-            priorEventStartTime: data.priorEventStartTime,
-            priorEventEndTime: data.priorEventEndTime,
-            eventStartTime: data.eventStartTime,
-            eventEndTime: data.eventEndTime,
-            afterEventStartTime: data.afterEventStartTime,
-            afterEventEndTime: data.afterEventEndTime,
+            addresses: data.addresses,
             eventCapacity: data.eventCapacity,
-            place: data.place,
-            house: data.house,
-            zip: data.zip,
-            day: data.day ? data.day : null,
-            date: data.date ? data.date : null,
-            monthYear: data.monthYear ? data.monthYear : null,
             groupServicePeriod: data.groupServicePeriod,
             volunteerCapacity: data.volunteerCapacity,
-            eventCode: data.eventCode
+            eventCode: data.eventCode,
+
+
+            // Timing
+            // priorEventStartTime: data.priorEventStartTime,
+            // priorEventEndTime: data.priorEventEndTime,
+            // eventStartTime: data.eventStartTime,
+            // eventEndTime: data.eventEndTime,
+            // afterEventStartTime: data.afterEventStartTime,
+            // afterEventEndTime: data.afterEventEndTime,
+
+
+            // place: data.place,
+            // house: data.house,
+            // zip: data.zip,
+            // day: data.day ? data.day : null,
+            // date: data.date ? data.date : null,
+            // monthYear: data.monthYear ? data.monthYear : null,
         })
+
+        await CustomId.updateOne({}, { eventId: customIds[0].eventId + 1 })
         res.status(201).json({
             message: 'Event added successfully'
         })

@@ -17,9 +17,15 @@ const mongoose = require('mongoose')
 // Eventcode
 
 const Event = new mongoose.Schema({
-    organization: {
-        type: String,
-        required: [true, "Organization is required"]
+
+    orgId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Organization',
+        required: [true, "OrganizationID is required"]
+    },
+    event_id: {
+        type: Number,
+        required: [true, "Event ID is required"]
     },
     eventType: {
         type: String,
@@ -31,57 +37,13 @@ const Event = new mongoose.Schema({
         latitudeDelta: { type: Number, retuired: [true, "LatitudeDelta for location is required"] },
         longitudeDelta: { type: Number, retuired: [true, "LongitudeDelta for location is required"] },
     },
-    priorEventStartTime: {
-        type: Date,
-        required: [true, "PriorEventStartTime is required"]
-    },
-    priorEventEndTime: {
-        type: Date,
-        required: [true, "PriorEventEndTime is required"]
-    },
-    eventStartTime: {
-        type: Date,
-        required: [true, "EventStartTime is required"]
-    },
-    eventEndTime: {
-        type: Date,
-        required: [true, "EventEndTime is required"]
-    },
-    afterEventStartTime: {
-        type: Date,
-        required: [true, "AfterEventStartTime is required"]
-    },
-    afterEventEndTime: {
-        type: Date,
-        required: [true, "AfterEventEndTime is required"]
-    },
+    addresses: [{
+        type: String,
+        required: [true, "Array of Addresses is required"]
+    }],
     eventCapacity: {
         type: Number,
         required: [true, "EventCapacity is required"]
-    },
-    place: {
-        type: String,
-        required: [true, "Place is required"]
-    },
-    house: {
-        type: String,
-        required: [true, "House is required"]
-    },
-    zip: {
-        type: String,
-        required: [true, "Zip is required"]
-    },
-    day: {
-        type: String,
-        default: null
-    },
-    date: {
-        type: String,
-        default: null
-    },
-    monthYear: {
-        type: String,
-        default: null
     },
     groupServicePeriod: {
         type: String,
@@ -97,6 +59,62 @@ const Event = new mongoose.Schema({
         minLength: 4,
         maxLength: 4
     },
+
+
+    //     Timings 
+
+    // priorEventStartTime: {
+    //     type: Date,
+    //     required: [true, "PriorEventStartTime is required"]
+    // },
+    // priorEventEndTime: {
+    //     type: Date,
+    //     required: [true, "PriorEventEndTime is required"]
+    // },
+    // eventStartTime: {
+    //     type: Date,
+    //     required: [true, "EventStartTime is required"]
+    // },
+    // eventEndTime: {
+    //     type: Date,
+    //     required: [true, "EventEndTime is required"]
+    // },
+    // afterEventStartTime: {
+    //     type: Date,
+    //     required: [true, "AfterEventStartTime is required"]
+    // },
+    // afterEventEndTime: {
+    //     type: Date,
+    //     required: [true, "AfterEventEndTime is required"]
+    // },
+
+
+
+    // place: {
+    //     type: String,
+    //     required: [true, "Place is required"]
+    // },
+    // house: {
+    //     type: String,
+    //     required: [true, "House is required"]
+    // },
+    // zip: {
+    //     type: String,
+    //     required: [true, "Zip is required"]
+    // },
+    // day: {
+    //     type: String,
+    //     default: null
+    // },
+    // date: {
+    //     type: String,
+    //     default: null
+    // },
+    // monthYear: {
+    //     type: String,
+    //     default: null
+    // },
+
 })
 
 module.exports = mongoose.model("Event", Event);
