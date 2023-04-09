@@ -15,6 +15,8 @@ const businessAdmin = require('./routes/businessadmin')
 const owner = require('./routes/owner')
 const organization = require('./routes/organization')
 const timing = require('./routes/timing')
+const forgetpasswordclient = require('./routes/forgetpasswordclient')
+const forgetpasswordvolunteer = require('./routes/forgetpasswordvolunteer')
 // const upload = require('./routes/upload')
 const multer = require("multer")
 const app = express()
@@ -36,6 +38,8 @@ app.use("/api/v1/businessadmin", businessAdmin)
 app.use("/api/v1/owner", owner)
 app.use("/api/v1/organization", organization)
 app.use("/api/v1/timing", timing)
+app.use("/api/v1/forgetpasswordclient", forgetpasswordclient)
+app.use("/api/v1/forgetpasswordvolunteer", forgetpasswordvolunteer)
 
 
 
