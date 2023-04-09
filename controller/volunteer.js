@@ -9,53 +9,53 @@ const SignUpVolunteer = async (req, res) => {
         return res.status(409).json({ message: "User Already Exists", volunteerExists: true })
     }
     else {
-        // bcrypt.hash(req.body.password, 10, async (err, hash) => {
-        //     if (err) {
-        //         return res.status(500).json({
-        //             error: err
-        //         })
-        //     }
-        //     else {
-        try {
-            if (req.body.password !== req.body.confirmPassword) {
-                return res.status(401).json({
-                    error: "password and confirm password didn't match"
+        bcrypt.hash(req.body.password, 10, async (err, hash) => {
+            if (err) {
+                return res.status(500).json({
+                    error: err
                 })
             }
-            const volunteer = await Volunteer.create({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                email: req.body.email,
-                password: req.body.password,
-                confirmPassword: req.body.confirmPassword,
-                phoneNumber: req.body.phoneNumber,
-                address: req.body.address,
-                employer: req.body.employer ? req.body.employer : '',
-                organization: req.body.organization ? req.body.organization : '',
-                // activeStatus: req.body.activeStatus,
-                // clientStatus: req.body.clientStatus,
-                volunteerAttandance: req.body.volunteerAttandance
-            })
-            const token = jwt.sign(
-                {
-                    email: volunteer.email,
-                    userId: volunteer._id
-                },
-                process.env.JWT_KEY
-            )
-            res.status(201).json({
-                message: 'User created successfully',
-                token,
-                volunteerExists: false
-            })
-        }
-        catch (err) {
-            res.status(500).json({
-                error: err
-            })
-        }
-        //     }
-        // })
+            else {
+                try {
+                    if (req.body.password !== req.body.confirmPassword) {
+                        return res.status(401).json({
+                            error: "password and confirm password didn't match"
+                        })
+                    }
+                    const volunteer = await Volunteer.create({
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        email: req.body.email,
+                        password: hash,
+                        confirmPassword: hash,
+                        phoneNumber: req.body.phoneNumber,
+                        address: req.body.address,
+                        employer: req.body.employer ? req.body.employer : '',
+                        organization: req.body.organization ? req.body.organization : '',
+                        // activeStatus: req.body.activeStatus,
+                        // clientStatus: req.body.clientStatus,
+                        volunteerAttandance: req.body.volunteerAttandance
+                    })
+                    const token = jwt.sign(
+                        {
+                            email: volunteer.email,
+                            userId: volunteer._id
+                        },
+                        process.env.JWT_KEY
+                    )
+                    res.status(201).json({
+                        message: 'User created successfully',
+                        token,
+                        volunteerExists: false
+                    })
+                }
+                catch (err) {
+                    res.status(500).json({
+                        error: err
+                    })
+                }
+            }
+        })
 
     }
 
@@ -70,29 +70,29 @@ const LoginVolunteer = async (req, res) => {
                 message: "Auth Failed"
             })
         }
-        // bcrypt.compare(req.body.password, user.password, (err, result) => {
-        if (req.body.password !== user.password) {
-            return res.status(401).json({
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
+            // if (req.body.password !== user.password) {
+            //     return res.status(401).json({
+            //         message: "Auth Failed"
+            //     })
+            // }
+            if (result) {
+                const token = jwt.sign(
+                    {
+                        email: user.email,
+                        userId: user._id
+                    },
+                    process.env.JWT_KEY
+                )
+                return res.status(200).json({
+                    messagae: "Auth Successful",
+                    token: token
+                })
+            }
+            res.status(401).json({
                 message: "Auth Failed"
             })
-        }
-        // if (result) {
-        const token = jwt.sign(
-            {
-                email: user.email,
-                userId: user._id
-            },
-            process.env.JWT_KEY
-        )
-        return res.status(200).json({
-            messagae: "Auth Successful",
-            token: token
         })
-        // }
-        // res.status(401).json({
-        //     message: "Auth Failed"
-        // })
-        // })
     }
     catch (err) {
         res.status(500).json({
