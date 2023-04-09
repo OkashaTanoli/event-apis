@@ -39,6 +39,10 @@ const Timing = new mongoose.Schema({
         type: Date,
         required: [true, "AfterEventEndTime is required"]
     },
+    capacity: {
+        type: Number,
+        required: [true, "Capacity is required"]
+    },
 
 })
 

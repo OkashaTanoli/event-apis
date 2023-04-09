@@ -11,6 +11,7 @@ const CreateTiming = async (req, res) => {
             eventEndTime: data.eventEndTime,
             afterEventStartTime: data.afterEventStartTime,
             afterEventEndTime: data.afterEventEndTime,
+            capacity: data.capacity,
         })
         res.status(201).json({
             message: 'Timing added successfully'

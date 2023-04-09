@@ -165,29 +165,25 @@ const UpdateVolunteer = async (req, res) => {
 
 
 
-const ForgetPassword = async (req, res) => {
-    // let user = await Volunteer.findOne({ email: req.body.email })
-    // if (!user) {
-    //     return res.status(404).json({ messaage: "No user found with the email" })
-    // }
-    if (req.body.password !== req.body.confirmPassword) {
-        return res.status(401).json({ messaage: "Password and confirm password didn't match" })
-    }
-    try {
-        const user = await Volunteer.findOneAndUpdate({ email: req.body.email }, { password: req.body.password, confirmPassword: req.body.confirmPassword })
-        if (!user) {
-            return res.status(404).json({
-                message: 'No user found with the email'
-            })
-        }
-        res.status(200).json({ message: 'Password updated successfully' })
-    }
-    catch (err) {
-        res.status(500).json({
-            error: err
-        })
-    }
-}
+// const ForgetPassword = async (req, res) => {
+//     if (req.body.password !== req.body.confirmPassword) {
+//         return res.status(401).json({ messaage: "Password and confirm password didn't match" })
+//     }
+//     try {
+//         const user = await Volunteer.findOneAndUpdate({ email: req.body.email }, { password: req.body.password, confirmPassword: req.body.confirmPassword })
+//         if (!user) {
+//             return res.status(404).json({
+//                 message: 'No user found with the email'
+//             })
+//         }
+//         res.status(200).json({ message: 'Password updated successfully' })
+//     }
+//     catch (err) {
+//         res.status(500).json({
+//             error: err
+//         })
+//     }
+// }
 
 
 module.exports = {
@@ -196,5 +192,4 @@ module.exports = {
     GetVolunteer,
     UpdateVolunteer,
     DeleteVolunteer,
-    ForgetPassword
 }
