@@ -1,6 +1,7 @@
 const Volunteer = require('../model/volunteer')
 const Otp = require('../model/volunteerotp')
 const nodemailer = require("nodemailer");
+const bcrypt = require('bcrypt')
 
 
 const SendOtp = async (req, res) => {
@@ -87,10 +88,18 @@ const ResetPassword = async (req, res) => {
                 message: "Password and confirm password didn't match"
             })
         }
-        await Volunteer.findOneAndUpdate({ email: req.body.email }, { password: req.body.password, confirmPassword: req.body.confirmPassword })
-        res.status(200).json({
-            message: 'Password Updated Successfully'
+        bcrypt.hash(req.body.password, 10, async (err, hash) => {
+            if (err) {
+                return res.status(500).json({
+                    error: err
+                })
+            }
+            await Volunteer.findOneAndUpdate({ email: req.body.email }, { password: hash, confirmPassword: hash })
+            res.status(200).json({
+                message: 'Password Updated Successfully'
+            })
         })
+
     }
     catch (err) {
         res.status(500).json({
