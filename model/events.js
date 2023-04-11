@@ -37,10 +37,20 @@ const Event = new mongoose.Schema({
         latitudeDelta: { type: Number, retuired: [true, "LatitudeDelta for location is required"] },
         longitudeDelta: { type: Number, retuired: [true, "LongitudeDelta for location is required"] },
     },
-    addresses: [{
-        type: String,
-        required: [true, "Array of Addresses is required"]
-    }],
+    addresses: [
+        {
+            place: { type: String, required: [true, "place is required"] },
+            house: { type: String, required: [true, "house is required"] },
+            zip: { type: String, required: [true, "zip is required"] },
+            location: {
+                latitude: { type: Number, retuired: [true, "Latitude for location is required"] },
+                longitude: { type: Number, retuired: [true, "Longitude for location is required"] },
+                latitudeDelta: { type: Number, retuired: [true, "LatitudeDelta for location is required"] },
+                longitudeDelta: { type: Number, retuired: [true, "LongitudeDelta for location is required"] },
+            },
+        },
+
+    ],
     eventCapacity: {
         type: Number,
         required: [true, "EventCapacity is required"]
@@ -59,61 +69,6 @@ const Event = new mongoose.Schema({
         minLength: 4,
         maxLength: 4
     },
-
-
-    //     Timings 
-
-    // priorEventStartTime: {
-    //     type: Date,
-    //     required: [true, "PriorEventStartTime is required"]
-    // },
-    // priorEventEndTime: {
-    //     type: Date,
-    //     required: [true, "PriorEventEndTime is required"]
-    // },
-    // eventStartTime: {
-    //     type: Date,
-    //     required: [true, "EventStartTime is required"]
-    // },
-    // eventEndTime: {
-    //     type: Date,
-    //     required: [true, "EventEndTime is required"]
-    // },
-    // afterEventStartTime: {
-    //     type: Date,
-    //     required: [true, "AfterEventStartTime is required"]
-    // },
-    // afterEventEndTime: {
-    //     type: Date,
-    //     required: [true, "AfterEventEndTime is required"]
-    // },
-
-
-
-    // place: {
-    //     type: String,
-    //     required: [true, "Place is required"]
-    // },
-    // house: {
-    //     type: String,
-    //     required: [true, "House is required"]
-    // },
-    // zip: {
-    //     type: String,
-    //     required: [true, "Zip is required"]
-    // },
-    // day: {
-    //     type: String,
-    //     default: null
-    // },
-    // date: {
-    //     type: String,
-    //     default: null
-    // },
-    // monthYear: {
-    //     type: String,
-    //     default: null
-    // },
 
 })
 
