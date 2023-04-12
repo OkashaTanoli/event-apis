@@ -85,7 +85,7 @@ app.post("/api/v1/upload", upload.single("image"), (req, res) => {
 
 
 app.get('/', (req, res) => {
-    res.send({ message: 'welcome to events API!' })
+    res.send({ message: 'welcome to events API!!' })
 })
 
 ConnectMongoDB(process.env.MONGO_URI).then(() => {
