@@ -24,7 +24,7 @@ const SendOtp = async (req, res) => {
         await Otp.findOneAndDelete({ email: req.body.email })
         
         const otp = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1)
-        let from = `"Event API" <${process.env.EMAIL}>`
+        let from = `"Cutz" <${process.env.EMAIL}>`
         let info = await transporter.sendMail({
             from: from, // sender address
             to: req.body.email, // ٖ list of receivers 
