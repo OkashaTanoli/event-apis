@@ -143,8 +143,30 @@ const UpdateClient = async (req, res) => {
     const userId = req.userData.userId
     const newObj = {}
     for (let i = 0; i < Object.keys(req.body).length; i++) {
-        newObj[Object.keys(req.body)[i]] = Object.values(req.body)[i]
+        if (Object.keys(req.body)[i] == 'password') {
+            if (req.body.password !== req.body.confirmPassword) {
+                return res.status(401).json({
+                    error: "password and confirm password didn't match"
+                })
+            }
+            try {
+
+                let hash = await bcrypt.hash(Object.values(req.body)[i], 10)
+                newObj['password'] = hash
+                newObj['confirmPassword'] = hash
+                continue;
+            }
+            catch (err) {
+                return res.status(500).json({
+                    error: err
+                })
+            }
+        }
+        if (Object.keys(req.body)[i] !== 'confirmPassword') {
+            newObj[Object.keys(req.body)[i]] = Object.values(req.body)[i]
+        }
     }
+
     try {
         const user = await Client.findOneAndUpdate({ _id: userId }, newObj)
         if (!user) {
