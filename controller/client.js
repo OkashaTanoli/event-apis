@@ -45,7 +45,8 @@ const SignUpClient = async (req, res) => {
                     res.status(201).json({
                         message: 'User created successfully',
                         token,
-                        clientExists: false
+                        clientExists: false,
+                        id: user._id
                     })
                 }
                 catch (err) {
@@ -99,6 +100,22 @@ const LoginClient = async (req, res) => {
         })
     }
 }
+
+
+
+const GetAllClients = async (req, res) => {
+    try {
+        const clients = await Client.find()
+        res.status(200).json(clients)
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+
+}
+
 
 
 const GetClient = async (req, res) => {
@@ -209,6 +226,7 @@ const UpdateClient = async (req, res) => {
 module.exports = {
     SignUpClient,
     LoginClient,
+    GetAllClients,
     GetClient,
     UpdateClient,
     DeleteClient,

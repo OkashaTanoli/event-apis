@@ -10,7 +10,8 @@ const CreateEventGroup = async (req, res) => {
             groupHour: data.groupHour
         })
         res.status(201).json({
-            message: 'EventGroup added successfully'
+            message: 'EventGroup added successfully',
+            id: eventGroup._id
         })
     }
     catch (err) {

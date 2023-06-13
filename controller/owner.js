@@ -26,7 +26,8 @@ const SignUpOwner = async (req, res) => {
                         address: req.body.address,
                     })
                     res.status(201).json({
-                        message: 'Owner created successfully'
+                        message: 'Owner created successfully',
+                        id: owner._id
                     })
                 }
                 catch (err) {
@@ -80,6 +81,24 @@ const LoginOwner = async (req, res) => {
         })
     }
 }
+
+
+
+
+const GetAllOwners = async (req, res) => {
+    try {
+        const owners = await Owner.find()
+        res.status(200).json(owners)
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+
+}
+
+
 
 
 const GetOwner = async (req, res) => {
@@ -153,6 +172,7 @@ const UpdateOwner = async (req, res) => {
 module.exports = {
     SignUpOwner,
     LoginOwner,
+    GetAllOwners,
     GetOwner,
     UpdateOwner,
     DeleteOwner

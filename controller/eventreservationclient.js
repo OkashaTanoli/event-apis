@@ -14,7 +14,8 @@ const CreateEventReservation = async (req, res) => {
             eventGroupID: data.eventGroupID,
         })
         res.status(201).json({
-            message: 'EventReservationClient added successfully'
+            message: 'EventReservationClient added successfully',
+            id: eventReservationClient._id
         })
     }
     catch (err) {

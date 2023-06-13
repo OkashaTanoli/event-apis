@@ -7,7 +7,8 @@ const CreateOrganization = async (req, res) => {
             organizationName: data.organizationName,
         })
         res.status(201).json({
-            message: 'Organization added successfully'
+            message: 'Organization added successfully',
+            id: organization._id
         })
     }
     catch (err) {

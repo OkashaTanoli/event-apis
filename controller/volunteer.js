@@ -46,7 +46,8 @@ const SignUpVolunteer = async (req, res) => {
                     res.status(201).json({
                         message: 'User created successfully',
                         token,
-                        volunteerExists: false
+                        volunteerExists: false,
+                        id: volunteer._id
                     })
                 }
                 catch (err) {
@@ -100,6 +101,25 @@ const LoginVolunteer = async (req, res) => {
         })
     }
 }
+
+
+
+
+const GetAllVolunteers = async (req, res) => {
+    try {
+        const volunteers = await Volunteer.find()
+        res.status(200).json(volunteers)
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+
+}
+
+
+
 
 
 const GetVolunteer = async (req, res) => {
@@ -210,6 +230,7 @@ const UpdateVolunteer = async (req, res) => {
 module.exports = {
     SignUpVolunteer,
     LoginVolunteer,
+    GetAllVolunteers,
     GetVolunteer,
     UpdateVolunteer,
     DeleteVolunteer,

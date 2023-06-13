@@ -27,7 +27,8 @@ const SignUpBusinessAdmin = async (req, res) => {
                         organization: req.body.organization
                     })
                     res.status(201).json({
-                        message: 'Business Admin created successfully'
+                        message: 'Business Admin created successfully',
+                        id: businessAdmin._id
                     })
                 }
                 catch (err) {
@@ -84,6 +85,19 @@ const LoginBusinessAdmin = async (req, res) => {
 
 
 
+
+const GetAllBusinessAdmin = async (req, res) => {
+    try {
+        const admins = await BusinessAdmin.find()
+        res.status(200).json(admins)
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+
+}
 
 
 const GetBusinessAdmin = async (req, res) => {
@@ -156,6 +170,7 @@ const UpdateBusinessAdmin = async (req, res) => {
 module.exports = {
     SignUpBusinessAdmin,
     LoginBusinessAdmin,
+    GetAllBusinessAdmin,
     GetBusinessAdmin,
     UpdateBusinessAdmin,
     DeleteBusinessAdmin

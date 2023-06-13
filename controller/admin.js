@@ -27,7 +27,8 @@ const SignUpAdmin = async (req, res) => {
                         organization: req.body.organization
                     })
                     res.status(201).json({
-                        message: 'Admin created successfully'
+                        message: 'Admin created successfully',
+                        id: admin._id
                     })
                 }
                 catch (err) {
@@ -82,6 +83,19 @@ const LoginAdmin = async (req, res) => {
     }
 }
 
+
+const GetAllAdmins = async (req, res) => {
+    try {
+        const admins = await Admin.find()
+        res.status(200).json(admins)
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+
+}
 
 const GetAdmin = async (req, res) => {
     const adminId = req.userData.adminId
@@ -152,6 +166,7 @@ const UpdateAdmin = async (req, res) => {
 module.exports = {
     SignUpAdmin,
     LoginAdmin,
+    GetAllAdmins,
     GetAdmin,
     UpdateAdmin,
     DeleteAdmin

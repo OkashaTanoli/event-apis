@@ -43,7 +43,8 @@ const CreateEvent = async (req, res) => {
 
         await CustomId.updateOne({}, { eventId: customIds[0].eventId + 1 })
         res.status(201).json({
-            message: 'Event added successfully'
+            message: 'Event added successfully',
+            id: event._id
         })
     }
     catch (err) {

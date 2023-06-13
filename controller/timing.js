@@ -14,7 +14,8 @@ const CreateTiming = async (req, res) => {
             capacity: data.capacity,
         })
         res.status(201).json({
-            message: 'Timing added successfully'
+            message: 'Timing added successfully',
+            id: timing._id
         })
     }
     catch (err) {
