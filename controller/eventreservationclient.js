@@ -26,6 +26,20 @@ const CreateEventReservation = async (req, res) => {
 }
 
 
+const GetAllEventReservations = async (req, res) => {
+    try {
+        const eventReservationClient = await EventReservationClient.find()
+        res.status(200).json(eventReservationClient)
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err
+        })
+    }
+
+}
+
+
 
 const GetEventReservations = async (req, res) => {
     const userId = req.userData.userId
@@ -112,6 +126,7 @@ module.exports = {
     CreateEventReservation,
     GetEventReservations,
     GetSingleEventReservation,
+    GetAllEventReservations,
     UpdateEventReservation,
     DeleteEventReservation
 }
