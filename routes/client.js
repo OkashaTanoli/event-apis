@@ -4,9 +4,9 @@ const { CheckUser } = require('../middleware/checkuser')
 
 router.route('/signup').post(SignUpClient)
 router.route('/login').post(LoginClient)
-router.route('/getall').get(GetAllClients)
+router.route('/getall').get(CheckUser, GetAllClients)
 // router.route('/forgetpassword').patch(ForgetPassword)
-router.route('/').get(CheckUser, GetClient).delete(CheckUser, DeleteClient).patch(CheckUser, UpdateClient)
+router.route('/:id').get(CheckUser, GetClient).delete(CheckUser, DeleteClient).patch(CheckUser, UpdateClient)
 
 
 module.exports = router

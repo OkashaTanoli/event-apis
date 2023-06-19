@@ -85,7 +85,15 @@ const LoginAdmin = async (req, res) => {
 
 
 const GetAllAdmins = async (req, res) => {
+    const userData = req.userData
+
     try {
+        const admin = await Admin.findOne({ _id: userData.adminId })
+        if (!admin) {
+            return res.status(401).json({
+                message: 'auth token invalid'
+            })
+        }
         const admins = await Admin.find()
         res.status(200).json(admins)
     }
