@@ -108,12 +108,12 @@ const LoginClient = async (req, res) => {
 const GetAllClients = async (req, res) => {
     const userData = req.userData
     try {
-        const admin = await Admin.findOne({ _id: userData.adminId })
-        if (!admin) {
-            return res.status(401).json({
-                message: 'auth token invalid'
-            })
-        }
+        // const admin = await Admin.findOne({ _id: userData.adminId })
+        // if (!admin) {
+        //     return res.status(401).json({
+        //         message: 'auth token invalid'
+        //     })
+        // }
         const clients = await Client.find()
         res.status(200).json(clients)
     }
