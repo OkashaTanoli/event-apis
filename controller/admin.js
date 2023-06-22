@@ -114,7 +114,11 @@ const GetAdmin = async (req, res) => {
                 message: 'auth token invalid'
             })
         }
-        res.status(200).json(admin)
+        const data = await Admin.findOne({ _id: req.params.id })
+        if (!data) {
+            return res.status(404).json({ msg: `No admin with id ${req.params.id}` })
+        }
+        res.status(200).json(data)
     }
     catch (err) {
         res.status(500).json({
@@ -128,11 +132,15 @@ const GetAdmin = async (req, res) => {
 const DeleteAdmin = async (req, res) => {
     const adminId = req.userData.adminId
     try {
-        const admin = await Admin.findOneAndDelete({ _id: adminId })
+        const admin = await Admin.findOne({ _id: adminId })
         if (!admin) {
             return res.status(401).json({
                 message: 'auth token invalid'
             })
+        }
+        const data = await Admin.findOneAndDelete({ _id: req.params.id })
+        if (!data) {
+            return res.status(404).json({ msg: `No admin with id ${req.params.id}` })
         }
         res.status(200).json({ message: 'Admin deleted successfully' })
     }
@@ -153,11 +161,15 @@ const UpdateAdmin = async (req, res) => {
         newObj[Object.keys(req.body)[i]] = Object.values(req.body)[i]
     }
     try {
-        const admin = await Admin.findOneAndUpdate({ _id: adminId }, newObj)
+        const admin = await Admin.findOne({ _id: adminId })
         if (!admin) {
             return res.status(401).json({
                 message: 'auth token invalid'
             })
+        }
+        const data = await Admin.findOneAndUpdate({ _id: req.params.id }, newObj)
+        if (!data) {
+            return res.status(404).json({ msg: `No admin with id ${req.params.id}` })
         }
         res.status(200).json({ message: 'Admin updated successfully' })
     }
