@@ -88,7 +88,8 @@ const LoginVolunteer = async (req, res) => {
                 )
                 return res.status(200).json({
                     messagae: "Auth Successful",
-                    token: token
+                    token: token,
+                    id: user._id
                 })
             }
             res.status(401).json({
