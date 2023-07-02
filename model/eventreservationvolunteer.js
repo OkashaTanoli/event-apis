@@ -25,11 +25,11 @@ const EventReservationVolunteer = new mongoose.Schema({
     },
     checkIN: {
         type: Date,
-        // default: false
+        default: null
     },
     checkOut: {
         type: Date,
-        // default: false
+        default: null
     }
 })
 
