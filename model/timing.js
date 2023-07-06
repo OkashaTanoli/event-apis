@@ -43,7 +43,10 @@ const Timing = new mongoose.Schema({
         type: Number,
         required: [true, "Capacity is required"]
     },
-
+    status: {
+        type: String,
+        default: 'pending'
+    }
 })
 
 module.exports = mongoose.model("Timing", Timing);

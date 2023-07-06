@@ -69,6 +69,10 @@ const Event = new mongoose.Schema({
         minLength: 4,
         maxLength: 4
     },
+    status: {
+        type: String,
+        default: 'pending'
+    }
 
 })
 
